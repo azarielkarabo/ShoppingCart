@@ -47,7 +47,9 @@ namespace ShoppingCart.Api.Services.AccountApiService
         public IdentityUser Login(UserModel model)
         {
             var user = userManager.Find(model.Username, model.Password);
-            return user;
+
+            var login = userManager.GetLogins(user.Id);
+            return login;
         }
 
     }
