@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "ShoppingCart.Data.Database";
         }
 
         protected override void Seed(ShoppingCart.Data.Database context)

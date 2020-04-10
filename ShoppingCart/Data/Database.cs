@@ -1,4 +1,5 @@
-﻿using ShoppingCart.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ShoppingCart.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,9 +8,9 @@ using System.Web;
 
 namespace ShoppingCart.Data
 {
-    public class Database : DbContext
+    public class Database : IdentityDbContext<IdentityUser>
     {
-        public Database() : base("shoppingCart")
+        public Database() : base("shoppingCart1")
         {
 
         }

@@ -27,32 +27,32 @@ namespace ShoppingCart
             [Obsolete]
             public static void Configure()
             {
-                Mapper.Initialize(cfg =>
-                {
-                    cfg.AddProfile<MapProfile>();
+                //Mapper.Initialize(cfg =>
+                //{
+                //    cfg.AddProfile<MapProfile>();
 
-                    cfg.CreateMap<Product, ProductViewModel>()
-                    .ForMember(c => c.CategoryId, d => d.MapFrom(c => c.Category.Id));
-                    cfg.CreateMap<ProductViewModel, Product>()
-                        .ForMember(c => c.Id, d => d.Ignore());
+                //    cfg.CreateMap<Product, ProductViewModel>()
+                //    .ForMember(c => c.CategoryId, d => d.MapFrom(c => c.Category.Id));
+                //    cfg.CreateMap<ProductViewModel, Product>()
+                //        .ForMember(c => c.Id, d => d.Ignore());
 
-                    cfg.CreateMap<Category, CategoryViewModel>()
-                    .ForMember(c => c.Id, d => d.MapFrom(c => c.Id));
-                    cfg.CreateMap<CategoryViewModel, Category>()
-                    .ForMember(c => c.Id, d => d.Ignore());
+                //    cfg.CreateMap<Category, CategoryViewModel>()
+                //    .ForMember(c => c.Id, d => d.MapFrom(c => c.Id));
+                //    cfg.CreateMap<CategoryViewModel, Category>()
+                //    .ForMember(c => c.Id, d => d.Ignore());
 
-                    cfg.CreateMap<CartItem, CartItemViewModel>();
-                    cfg.CreateMap<CartItemViewModel, CartItem>()
-                    .ForMember(c => c.Id, d => d.Ignore());
+                //    cfg.CreateMap<CartItem, CartItemViewModel>();
+                //    cfg.CreateMap<CartItemViewModel, CartItem>()
+                //    .ForMember(c => c.Id, d => d.Ignore());
 
-                    cfg.CreateMap<Order, OrderViewModel>();
-                    cfg.CreateMap<OrderViewModel, Order>()
-                    .ForMember(c => c.Id, d => d.Ignore());
+                //    cfg.CreateMap<Order, OrderViewModel>();
+                //    cfg.CreateMap<OrderViewModel, Order>()
+                //    .ForMember(c => c.Id, d => d.Ignore());
 
-                    cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
-                    cfg.CreateMap<OrderDetailViewModel, OrderDetail>()
-                    .ForMember(c => c.Id, d => d.Ignore());
-                });
+                //    cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
+                //    cfg.CreateMap<OrderDetailViewModel, OrderDetail>()
+                //    .ForMember(c => c.Id, d => d.Ignore());
+                //});
 
 
             }
