@@ -8,11 +8,11 @@ using System.Web.Http;
 
 namespace ShoppingCart.Api
 {
-    public class BaseApiWithModelController<TClass, TViewModel> : BaseApiController where TClass : BaseModel
+    public abstract class BaseApiWithModelController<TClass, TViewModel> : BaseApiController where TClass : BaseModel
     {
         [HttpGet]
         [Route("")]
-        public HttpResponseMessage GetAll()
+        public virtual HttpResponseMessage GetAll()
         {
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
               {
@@ -23,7 +23,7 @@ namespace ShoppingCart.Api
 
         [HttpGet]
         [Route("id")]
-        public HttpResponseMessage Get(Guid id)
+        public virtual HttpResponseMessage Get(Guid id)
         {
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
@@ -34,7 +34,7 @@ namespace ShoppingCart.Api
 
         [HttpPut]
         [Route("id")]
-        public HttpResponseMessage Update(Guid id, [FromBody]TViewModel model)
+        public virtual HttpResponseMessage Update(Guid id, [FromBody]TViewModel model)
         {
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
@@ -45,7 +45,7 @@ namespace ShoppingCart.Api
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Create([FromBody]TViewModel model)
+        public virtual HttpResponseMessage Create([FromBody]TViewModel model)
         {
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
@@ -56,7 +56,7 @@ namespace ShoppingCart.Api
 
         [HttpDelete]
         [Route("id")]
-        public HttpResponseMessage Remove(Guid id)
+        public virtual HttpResponseMessage Remove(Guid id)
         {
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
