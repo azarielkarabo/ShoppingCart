@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace ShoppingCart.Api.v1.Controllers
+namespace ShoppingCart.Api.Controllers
 {
     public class OrderApiController : BaseApiWithModelController<Order, OrderViewModel>
     {

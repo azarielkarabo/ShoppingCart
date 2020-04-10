@@ -14,7 +14,7 @@ namespace ShoppingCart.Api
         [Route("")]
         public HttpResponseMessage GetAll()
         {
-            return Execute<TService<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
               {
                   var data = x.GetAll();
                   return Success(data);
@@ -25,7 +25,7 @@ namespace ShoppingCart.Api
         [Route("id")]
         public HttpResponseMessage Get(Guid id)
         {
-            return Execute<TService<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 var data = x.Get(id);
                 return Success(data);
@@ -36,7 +36,7 @@ namespace ShoppingCart.Api
         [Route("id")]
         public HttpResponseMessage Update(Guid id, [FromBody]TViewModel model)
         {
-            return Execute<TService<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 var data = x.Update(id, model);
                 return Success(data);
@@ -47,7 +47,7 @@ namespace ShoppingCart.Api
         [Route("")]
         public HttpResponseMessage Create([FromBody]TViewModel model)
         {
-            return Execute<TService<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 var data = x.Create(model);
                 return Success(data);
@@ -58,7 +58,7 @@ namespace ShoppingCart.Api
         [Route("id")]
         public HttpResponseMessage Remove(Guid id)
         {
-            return Execute<TService<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 x.Remove(id);
                 return Success();

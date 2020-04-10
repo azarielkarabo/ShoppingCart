@@ -3,7 +3,7 @@ using ShoppingCart.Models;
 using System;
 using System.Web.Http;
 
-namespace ShoppingCart.Api.v1.Controllers
+namespace ShoppingCart.Api.Controllers
 {
     /// <summary>
     /// All the product cruds are done in a generic BaseApiWithModelController

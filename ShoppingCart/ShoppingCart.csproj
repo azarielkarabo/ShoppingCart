@@ -142,20 +142,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\BaseApiController.cs" />
-    <Compile Include="Api\BaseApiWithModelController.cs" />
-    <Compile Include="Api\ITService.cs" />
-    <Compile Include="Api\TService.cs" />
-    <Compile Include="Api\v1\Controllers\CartItemApiController.cs" />
-    <Compile Include="Api\v1\Controllers\CategoryApiController.cs" />
-    <Compile Include="Api\v1\Controllers\OrderApiController.cs" />
-    <Compile Include="Api\v1\Controllers\OrderDetailApiController.cs" />
-    <Compile Include="Api\v1\Controllers\ProductApiController.cs" />
-    <Compile Include="Api\v1\Model\CartItemViewModel.cs" />
-    <Compile Include="Api\v1\Model\CategoryViewModel.cs" />
-    <Compile Include="Api\v1\Model\OrderDetailViewModel.cs" />
-    <Compile Include="Api\v1\Model\OrderViewModel.cs" />
-    <Compile Include="Api\v1\Model\ProductViewModel.cs" />
+    <Compile Include="Api\BaseApi\BaseApiController.cs" />
+    <Compile Include="Api\BaseApi\BaseApiWithModelController.cs" />
+    <Compile Include="Api\Controllers\CartItemApiController.cs" />
+    <Compile Include="Api\Controllers\CategoryApiController.cs" />
+    <Compile Include="Api\Controllers\OrderApiController.cs" />
+    <Compile Include="Api\Controllers\OrderDetailApiController.cs" />
+    <Compile Include="Api\Controllers\ProductApiController.cs" />
+    <Compile Include="Api\Model\CartItemViewModel.cs" />
+    <Compile Include="Api\Model\CategoryViewModel.cs" />
+    <Compile Include="Api\Model\LoginViewModel.cs" />
+    <Compile Include="Api\Model\OrderDetailViewModel.cs" />
+    <Compile Include="Api\Model\OrderViewModel.cs" />
+    <Compile Include="Api\Model\ProductViewModel.cs" />
+    <Compile Include="Api\Model\RegisterViewModel.cs" />
+    <Compile Include="Api\RepositoryService\IServiceRepository.cs" />
+    <Compile Include="Api\RepositoryService\ServiceRepository.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -263,7 +265,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\v1\Services\" />
+    <Folder Include="Api\Services\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

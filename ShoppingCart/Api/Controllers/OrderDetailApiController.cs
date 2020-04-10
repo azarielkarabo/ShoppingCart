@@ -7,10 +7,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace ShoppingCart.Api.v1.Controllers
+namespace ShoppingCart.Api.Controllers
 {
-    [RoutePrefix("api/v1/Category")]
-    public class CategoryApiController : BaseApiWithModelController<Category, CategoryViewModel>
+    [RoutePrefix("api/v1/OrderDetail")]
+    public class OrderDetailApiController : BaseApiWithModelController<OrderDetail, OrderDetailViewModel>
     {
     }
 }

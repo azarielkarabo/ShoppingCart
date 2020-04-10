@@ -6,16 +6,19 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Database = ShoppingCart.Data.Database;
 
 namespace ShoppingCart.Api
 {
-    public class TService<TClass, TViewModel> : ITService<TClass, TViewModel> where TClass : BaseModel
+    public class ServiceRepository<TClass, TViewModel> : IServiceRepository<TClass, TViewModel> where TClass : BaseModel
     {
-        private readonly Database _dbContext = new Database();
-        public TService()
-        {
 
+        private readonly Database _dbContext;
+
+        public ServiceRepository()
+        {
+            _dbContext = DependencyResolver.Current.GetService<Database>();
         }
         public TClass Create(TViewModel model)
         {

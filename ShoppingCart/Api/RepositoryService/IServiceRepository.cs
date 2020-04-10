@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.Api
 {
-    interface ITService<TClass, TViewModel> where TClass : BaseModel
+    interface IServiceRepository<TClass, TViewModel> where TClass : BaseModel
     {
         List<TViewModel> GetAll();
         TClass Get(Guid id);
