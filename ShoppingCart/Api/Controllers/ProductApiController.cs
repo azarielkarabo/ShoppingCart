@@ -15,7 +15,7 @@ namespace ShoppingCart.Api.Controllers
     [RoutePrefix("api/v1/Product")]
     public class ProductApiController : BaseApiWithModelController<Product, ProductViewModel>
     {
-        private ApplicationDbContext dbContext = new ApplicationDbContext();
+        private readonly ApplicationDbContext dbContext = new ApplicationDbContext();
         public override HttpResponseMessage Create([FromBody] ProductViewModel model)
         {
 
@@ -23,7 +23,6 @@ namespace ShoppingCart.Api.Controllers
 
             var entity = Mapper.Map<Product>(model);
             entity.Category = category;
-
             entity.SetId();
 
             dbContext.Products.Add(entity);

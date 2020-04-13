@@ -7,19 +7,15 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ApplicationDbContext = ShoppingCart.Data.ApplicationDbContext;
 
 namespace ShoppingCart.Api
 {
     public class ServiceRepository<TEntity, TViewModel> : IServiceRepository<TEntity, TViewModel> where TEntity : BaseModel
     {
 
-        private readonly ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
 
-        public ServiceRepository()
-        {
-            _dbContext = DependencyResolver.Current.GetService<ApplicationDbContext>();
-        }
+        public ServiceRepository() { }
         public TEntity Create(TViewModel model)
         {
             try
