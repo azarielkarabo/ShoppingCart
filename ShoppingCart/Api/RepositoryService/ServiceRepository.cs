@@ -7,46 +7,45 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Database = ShoppingCart.Data.Database;
+using ApplicationDbContext = ShoppingCart.Data.ApplicationDbContext;
 
 namespace ShoppingCart.Api
 {
-    public class ServiceRepository<TClass, TViewModel> : IServiceRepository<TClass, TViewModel> where TClass : BaseModel
+    public class ServiceRepository<TEntity, TViewModel> : IServiceRepository<TEntity, TViewModel> where TEntity : BaseModel
     {
 
-        private readonly Database _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         public ServiceRepository()
         {
-            _dbContext = DependencyResolver.Current.GetService<Database>();
+            _dbContext = DependencyResolver.Current.GetService<ApplicationDbContext>();
         }
-        public TClass Create(TViewModel model)
+        public TEntity Create(TViewModel model)
         {
             try
             {
-                var item = Mapper.Map<TClass>(model);
-                item.SetId();
+                var entity = Mapper.Map<TEntity>(model);
+                entity.SetId();
 
-                _dbContext.Set<TClass>().Add(item);
+                _dbContext.Set<TEntity>().Add(entity);
                 _dbContext.SaveChanges();
 
-                return item;
+                return entity;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
 
-        public TClass Get(Guid id)
+        public TEntity Get(Guid id)
         {
-            return _dbContext.Set<TClass>().Find(id);
+            return _dbContext.Set<TEntity>().Find(id);
         }
 
         public List<TViewModel> GetAll()
         {
-            return _dbContext.Set<TClass>().ToList()
+            return _dbContext.Set<TEntity>().ToList()
                         .Select(
                     c => Mapper.Map<TViewModel>(c)
                 ).ToList();
@@ -56,9 +55,9 @@ namespace ShoppingCart.Api
         {
             try
             {
-                var item = Get(id);
+                var entity = Get(id);
 
-                _dbContext.Set<TClass>().Remove(item);
+                _dbContext.Set<TEntity>().Remove(entity);
                 _dbContext.SaveChanges();
             }
             catch (Exception ex)
@@ -67,22 +66,24 @@ namespace ShoppingCart.Api
             }
         }
 
-        public TClass Update(Guid id, TViewModel model)
+        public TViewModel Update(Guid id, TViewModel model)
         {
             try
             {
 
-                var item = Get(id);
-                if (item != null)
+                var entity = Get(id);
+
+                if (entity != null)
                 {
                     //Copying data from vm to entity
-                    Mapper.Map(model, item);
+                    Mapper.Map(model, entity);
+                    entity.SetUpdatedTimeStamp();
                 }
 
-                _dbContext.Entry(item).State = EntityState.Modified;
+                _dbContext.Entry(entity).State = EntityState.Modified;
                 _dbContext.SaveChanges();
 
-                return item;
+                return Mapper.Map<TViewModel>(entity);
             }
             catch (Exception ex)
             {

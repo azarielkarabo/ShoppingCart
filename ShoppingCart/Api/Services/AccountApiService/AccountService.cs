@@ -15,7 +15,7 @@ namespace ShoppingCart.Api.Services.AccountApiService
     public class AccountService : IAccountService
     {
 
-        private readonly Database dbContext = new Database();
+        private readonly ApplicationDbContext dbContext = new ApplicationDbContext();
         private UserManager<IdentityUser> userManager;
         public AccountService()
         {

@@ -12,7 +12,7 @@ namespace ShoppingCart.Data
 {
     public class AuthRepo : IDisposable
     {
-        private readonly Database dbContext = new Database();
+        private readonly ApplicationDbContext dbContext = new ApplicationDbContext();
         private UserManager<IdentityUser> userManager;
         public AuthRepo()
         {

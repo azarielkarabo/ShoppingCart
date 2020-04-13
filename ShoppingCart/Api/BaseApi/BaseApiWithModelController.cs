@@ -50,7 +50,7 @@ namespace ShoppingCart.Api
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 var data = x.Create(model);
-                return Success(data);
+                return CreateSuccess(data);
             });
         }
 
@@ -61,7 +61,7 @@ namespace ShoppingCart.Api
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 x.Remove(id);
-                return Success();
+                return DeleteSuccess();
             });
         }
     }

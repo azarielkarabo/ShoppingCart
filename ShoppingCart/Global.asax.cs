@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ShoppingCart.Api.v1.Model;
+using ShoppingCart.Data;
 using ShoppingCart.Models;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,13 @@ namespace ShoppingCart
         }
         public class AutoMapperConfiguration
         {
+
+
             [Obsolete]
             public static void Configure()
             {
+                ApplicationDbContext dbContext = new ApplicationDbContext();
+
                 // It insures that if Mapping have already initialized then it resets it
                 Mapper.Reset();
 
@@ -34,10 +39,13 @@ namespace ShoppingCart
                 {
                     //cfg.AddProfile<MapProfile>();
 
-                    cfg.CreateMap<Product, ProductViewModel>()
-                    .ForMember(c => c.CategoryId, d => d.MapFrom(c => c.Category.Id));
+                    _ = cfg.CreateMap<Product, ProductViewModel>()
+                    .ForMember(c => c.CategoryId, d => d.MapFrom(c => c.Category.Id))
+                    .ForMember(c => c.CategoryName, d => d.MapFrom(c => dbContext.Categories.Find(c.Category.Id).Name));
+
                     cfg.CreateMap<ProductViewModel, Product>()
                         .ForMember(c => c.Id, d => d.Ignore());
+                    //.ForMember(c => c.Category, d => d.MapFrom(c => dbContext.Categories.Find(c.CategoryId)));
 
                     cfg.CreateMap<Category, CategoryViewModel>()
                     .ForMember(c => c.Id, d => d.MapFrom(c => c.Id));

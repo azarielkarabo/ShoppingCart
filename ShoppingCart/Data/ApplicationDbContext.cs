@@ -8,9 +8,9 @@ using System.Web;
 
 namespace ShoppingCart.Data
 {
-    public class Database : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public Database() : base("shoppingCart1")
+        public ApplicationDbContext() : base("shoppingCart1")
         {
 
         }

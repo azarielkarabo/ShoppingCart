@@ -14,6 +14,7 @@ namespace ShoppingCart.Api.v1.Model
         public DateTime? LastUpdatedTimestamp { get; set; }
         public string ImagePath { get; set; }
         public double? Price { get; set; }
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

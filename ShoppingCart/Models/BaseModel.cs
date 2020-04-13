@@ -12,11 +12,16 @@ namespace ShoppingCart.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime? CreatedTime { get; set; }
-        public DateTime? LastUpdatedTimestamp { get; set; }
+        public DateTime? CreatedTime { get; private set; }
+        public DateTime? LastUpdatedTimestamp { get; private set; }
         public void SetId()
         {
             Id = Guid.NewGuid();
+            CreatedTime = DateTime.Now;
+        }
+        public void SetUpdatedTimeStamp()
+        {
+            LastUpdatedTimestamp = DateTime.Now;
         }
     }
 }

@@ -5,14 +5,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ShoppingCart.Data.Database>
+    internal sealed class Configuration : DbMigrationsConfiguration<ShoppingCart.Data.ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ShoppingCart.Data.Database context)
+        protected override void Seed(ShoppingCart.Data.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
