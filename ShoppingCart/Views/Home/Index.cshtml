@@ -1,35 +1,77 @@
-﻿<div class="jumbotron">
-    <h1>This is a food order app.</h1>
-    @*<p class="lead">We</p>*@
-    <p><button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("Index", "Items")'">Order Some Food &raquo;</button></p>
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="~/Scripts/items.js"></script>
+
+<br />
+<form action="/Home/Category" method="get" id="category" class="option">
+    <div class="row">
+        <div class="form-group form-control-static">
+            <label class="col-xs-1">
+                <span>Category</span>
+            </label>
+            <div class="col-md-4">
+
+                <select data-bind="options: $root.categories ,
+                       optionsText: 'name',
+                       value: 'id',
+                       optionsCaption: '(Please select)'" id="catName" class="form-control pull-left"></select>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--ko if:$root.items().length===0 -->
+<br />
+<div id="EmptyDataMsg" class="alert alert-info">
+    <strong>Welcome!</strong> Our shop is currently empty.
 </div>
+<!--/ko-->
+<div class="list-view">
+    <!--ko foreach:$root.items -->
+    <div class="list-item">
+        <span class="p-cart" data-bind="text:categoryName"></span>
+        <span class="img">
+            <span class="pull-right">
+                <img src="~/Content/Images/steak.jpeg" height="120px" width="140px" />
+            </span>
+        </span>
+        <span class="p-name" data-bind="text:name"></span>
+        <span class="p-description" data-bind="text:description"></span>
 
-<div class="row">
-    <div class="col-md-4">
-
+        <div class="add-to-cart">
+            <a data-bind="click:addToCart">Add To Cart</a>
+            <span class="p-price" data-bind="text:price"></span>
+        </div>
+        <span class="p-unit">
+            @*@item.UnitsInStock
+                @if (item.UnitsInStock > 1)
+                {
+                    <text>units</text>
+                }
+                else
+                {
+                    <text>unit</text>
+                }*@
+        </span>
     </div>
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4">
-
-    </div>
-
-
-
+    <!--/ko-->
+    @*   }*@
 </div>
+@*}*@
+
+
+
+@*<tr>
+        <td>@item.pname</td>
+        <td>@string.format("{0:c}", item.unitprice)</td>
+        <td>
+            <a class="quantity" onclick="change(this, 1, @item.pid)">+</a>
+            <span>@item.quantity</span>
+            <a class="quantity" onclick="change(this, 0, @item.pid)">-</a>
+            <a class="remove" onclick="change(this, -1, @item.pid)">remove</a>
+        </td>
+    </tr>*@

@@ -12,7 +12,7 @@ using System.Web.Http;
 
 namespace ShoppingCart.Api.Controllers
 {
-    [RoutePrefix("api/Accounts")]
+    [RoutePrefix("api/AccountApi")]
     public class AccountApiController : BaseApiController
     {
         [HttpPost]

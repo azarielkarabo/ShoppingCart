@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace ShoppingCart.Api.Controllers
 {
+    [RoutePrefix("api/OrderApi")]
     public class OrderApiController : BaseApiWithModelController<Order, OrderViewModel>
     {
     }

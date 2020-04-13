@@ -12,10 +12,15 @@ namespace ShoppingCart.Api.Controllers
     /// <summary>
     /// All the product cruds are done in a generic BaseApiWithModelController
     /// </summary>
-    [RoutePrefix("api/v1/Product")]
+    [RoutePrefix("api/ProductApi")]
     public class ProductApiController : BaseApiWithModelController<Product, ProductViewModel>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ApplicationDbContext dbContext = new ApplicationDbContext();
+
+        [HttpPost]
         public override HttpResponseMessage Create([FromBody] ProductViewModel model)
         {
 
