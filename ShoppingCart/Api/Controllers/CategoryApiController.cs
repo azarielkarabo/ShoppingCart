@@ -22,6 +22,7 @@ namespace ShoppingCart.Api.Controllers
         /// This action is used for a dropdown
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("Pull")]
         public HttpResponseMessage Pull()

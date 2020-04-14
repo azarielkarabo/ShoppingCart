@@ -37,7 +37,6 @@ namespace ShoppingCart
 
                 Mapper.Initialize(cfg =>
                 {
-                    //cfg.AddProfile<MapProfile>();
 
                     _ = cfg.CreateMap<Product, ProductViewModel>()
                     .ForMember(c => c.CategoryId, d => d.MapFrom(c => c.Category.Id))
@@ -54,7 +53,8 @@ namespace ShoppingCart
 
                     cfg.CreateMap<CartItem, CartItemViewModel>();
                     cfg.CreateMap<CartItemViewModel, CartItem>()
-                    .ForMember(c => c.Id, d => d.Ignore());
+                    .ForMember(c => c.Id, d => d.Ignore())
+                    .ForMember(c => c.Product, d => d.MapFrom(c => dbContext.Products.Find(c.ProductId)));
 
                     cfg.CreateMap<Order, OrderViewModel>();
                     cfg.CreateMap<OrderViewModel, Order>()
@@ -67,11 +67,6 @@ namespace ShoppingCart
 
 
             }
-        }
-
-        internal class MapProfile : AutoMapper.Profile
-        {
-
         }
     }
 }

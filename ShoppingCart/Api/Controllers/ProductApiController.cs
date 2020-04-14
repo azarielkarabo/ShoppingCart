@@ -20,6 +20,18 @@ namespace ShoppingCart.Api.Controllers
         /// </summary>
         private readonly ApplicationDbContext dbContext = new ApplicationDbContext();
 
+        /// <summary>
+        /// Added here since  the baseapi needs authorization
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("")]
+        public override HttpResponseMessage GetAll()
+        {
+            return base.GetAll();
+        }
+
         [HttpPost]
         public override HttpResponseMessage Create([FromBody] ProductViewModel model)
         {

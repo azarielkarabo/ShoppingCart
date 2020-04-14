@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Online Shopping </title>
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
@@ -28,6 +29,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+              
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -35,19 +37,20 @@
 
     <div class="container body-content">
         @* <a class="basket">
-            <span>Your Basket: </span> @ViewBag.CartUnits
-            <table>
-                @foreach (var c in ViewBag.Cart)
-                {
-                    <tr><td>@c.Quantity x @String.Format("{0:c}", c.UnitPrice)</td><td>@c.PName</td></tr>
-                }
-                <tr>
-                    <td>Total: @String.Format("{0:c}", ViewBag.CartTotalPrice)</td>
-                    <td>@Html.ActionLink("Check Out", "Index", "Checkout")</td>
-                </tr>
-            </table>
-        </a>*@
+                <span>Your Basket: </span> @ViewBag.CartUnits
+                <table>
+                    @foreach (var c in ViewBag.Cart)
+                    {
+                        <tr><td>@c.Quantity x @String.Format("{0:c}", c.UnitPrice)</td><td>@c.PName</td></tr>
+                    }
+                    <tr>
+                        <td>Total: @String.Format("{0:c}", ViewBag.CartTotalPrice)</td>
+                        <td>@Html.ActionLink("Check Out", "Index", "Checkout")</td>
+                    </tr>
+                </table>
+            </a>*@
         @RenderBody()
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Food Order App</p>

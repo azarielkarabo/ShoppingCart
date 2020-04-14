@@ -13,12 +13,12 @@
             <label class="col-xs-1">
                 <span>Category</span>
             </label>
-            <div class="col-md-4">
+            <div class="col-xs-2">
 
                 <select data-bind="options: $root.categories ,
                        optionsText: 'name',
                        value: 'id',
-                       optionsCaption: '(Please select)'" id="catName" class="form-control pull-left"></select>
+                       optionsCaption: '(Please select)'" id="catName" class="form-control pull-right"></select>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
         <span class="p-cart" data-bind="text:categoryName"></span>
         <span class="img">
             <span class="pull-right">
-                <img src="~/Content/Images/steak.jpeg" height="120px" width="140px" />
+                <img class="img-rounded" src="~/Content/Images/steak.jpeg" height="120px" width="140px" />
             </span>
         </span>
         <span class="p-name" data-bind="text:name"></span>

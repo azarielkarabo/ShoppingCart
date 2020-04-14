@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace ShoppingCart.Api
 {
+    [Authorize]
     public abstract class BaseApiWithModelController<TClass, TViewModel> : BaseApiController where TClass : BaseModel
     {
         [HttpGet]
