@@ -62,7 +62,7 @@ namespace ShoppingCart.Api
             return Execute<ServiceRepository<TClass, TViewModel>>(x =>
             {
                 x.Remove(id);
-                return DeleteSuccess();
+                return Success();
             });
         }
     }

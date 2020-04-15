@@ -33,6 +33,7 @@ namespace ShoppingCart.Api.Controllers
         }
 
         [HttpPost]
+        [Route("")]
         public override HttpResponseMessage Create([FromBody] ProductViewModel model)
         {
 

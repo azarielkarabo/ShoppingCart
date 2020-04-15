@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "Admin Views";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>
+<script src="~/Scripts/cartItems.js"></script>
+
+<br />
+<br />
+<div class="form-horizontal">
+    <div class="container">
+        <div class="col-md-12 maxheight" style="padding:5px">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#cartItemsTab" data-toggle="tab">Cart Items</a></li>
+                <li><a href="#productsTab" data-toggle="tab">Products</a></li>
+                <li><a href="#categoriesTab" data-toggle="tab">Categories</a></li>
+            </ul>
+            <div class="tab-content " style="margin-top:30px;">
+
+                <div class="tab-pane active" id="cartItemsTab">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--ko foreach:$root.items-->
+                            <tr>
+                                <th scope="row"></th>
+                                <td data-bind="text:name"></td>
+                                <td data-bind="text:description"></td>
+                                <td data-bind="text:quantity"></td>
+                                <td data-bind="text:unitPrice"></td>
+                            </tr>
+                            <!--/ko-->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane " id="productsTab">
+
+                    <div class="col-md-3"><button class="btn btn-primary" data-toggle="modal" data-target="#productModal">Add Product</button></div>
+                    <br />
+                    <br />
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="100px"></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th width="75px">Price</th>
+                                <th scope="col" width="200px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--ko foreach:products-->
+                            <tr>
+                                <th scope="row">
+                                    <img class="img-rounded" src="~/Content/Images/steak.jpeg" height="60px" width="70px" />
+                                </th>
+                                <td data-bind="text:name"></td>
+                                <td data-bind="text:description"></td>
+                                <td data-bind="text:formattedPrice"></td>
+                                <td>
+                                <td>
+                                    <span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#productEditModal"></i></span>
+                                    <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span>
+                                </td>
+                            </tr>
+                            <!--/ko-->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane " id="categoriesTab">
+
+                    <div class="col-md-3"><button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">Add Category</button></div>
+                    <br />
+                    <br />
+                    <hr />
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col" width="200px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--ko foreach:categories-->
+                            <tr>
+                                <th scope="row"></th>
+                                <td data-bind="text:name"></td>
+                                <td data-bind="text:description"></td>
+                                <td><span><i class="fa fa-pencil fa-sm"></i></span>  <span> <i class="fa fa-trash fa-sm"></i></span> </td>
+                            </tr>
+                            <!--/ko-->
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-7">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Category </label>
+                        <select data-bind="options: $root.categories ,
+                       optionsText: 'name',
+                       value: 'id',
+                       optionsCaption: '(Please select)'" id="catName" class="form-control pull-right"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Name </label>
+                        <input type="text" class="form-control" data-bind="value:$root.prodName" id="recipient-name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description </label>
+                        <textarea class="form-control" data-bind="value:$root.prodDescription" id="message-text"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Price </label>
+                        <input type="number" data-bind="value:$root.prodPrice" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">File </label>
+                        <input type="file">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click:$root.addProduct">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="productEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-7">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <!--ko with:product-->
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Category </label>
+                        <select data-bind="options: $root.categories ,
+                       optionsText: 'name',
+                       value: 'id',
+                       optionsCaption: '(Please select)'" id="catName" class="form-control pull-right"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Name </label>
+                        <input type="text" class="form-control" data-bind="value:name" id="recipient-name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description </label>
+                        <textarea class="form-control" data-bind="value:description" id="message-text"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Price </label>
+                        <input type="number" class="form-control" data-bind="value:price" id="recipient-name">
+                    </div>
+
+                    <!--/ko-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click:$root.saveProduct">Save Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-7">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Category</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Name </label>
+                        <input type="text" data-bind="value:$root.categoryName" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description </label>
+                        <textarea class="form-control" data-bind="value:$root.categoryDescription" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click:$root.addCategory">Add Category</button>
+            </div>
+        </div>
+    </div>
+</div>

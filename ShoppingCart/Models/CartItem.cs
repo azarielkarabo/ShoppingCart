@@ -8,8 +8,7 @@ namespace ShoppingCart.Models
     public class CartItem : BaseModel
     {
         public int Quantity { get; set; }
-        public double Total { get; set; }
+        public double UnitPrice { get; set; }
         public virtual Product Product { get; set; }
-
     }
 }

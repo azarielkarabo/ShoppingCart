@@ -33,15 +33,31 @@ namespace ShoppingCart.Api.Controllers
         {
             var product = dbContext.Products.Find(model.ProductId);
 
-            var entity = Mapper.Map<CartItem>(model);
-            entity.Product = product;
-            entity.Name = product?.Name;
-            entity.Total = product?.Price ?? 0.00 * entity.Quantity;
-            entity.SetId();
+            if (product != null)
+            {
+                var cartItem = dbContext.ShoppingCartItems.FirstOrDefault(c => c.Product.Id == product.Id);
+                if (cartItem != null)
+                {
+                    var productPrice = product.Price ?? 0;
+                    cartItem.Quantity++;
+                    cartItem.UnitPrice = productPrice * cartItem.Quantity;
+                }
+                else
+                {
+                    var entity = Mapper.Map<CartItem>(model);
+                    entity.Product = product;
+                    entity.Description = product?.Description;
+                    entity.Name = product?.Name;
+                    entity.UnitPrice = product.Price ?? 0.00 * entity.Quantity;
 
-            dbContext.SaveChanges();
+                    entity.SetId();
+                    dbContext.ShoppingCartItems.Add(entity);
+                    model = Mapper.Map<CartItemViewModel>(entity);
+                }
 
-            model = Mapper.Map<CartItemViewModel>(entity);
+                dbContext.SaveChanges();
+            }
+
             return Success(model);
         }
     }
