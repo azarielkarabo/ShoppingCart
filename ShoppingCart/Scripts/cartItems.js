@@ -4,9 +4,14 @@ function cartItemsVm() {
 
     self.items = ko.observableArray();
     self.products = ko.observableArray();
-    self.product = ko.observable();
-
+    self.filteredProducts = ko.observableArray();
     self.categories = ko.observableArray();
+
+
+    self.product = ko.observable();
+    self.category = ko.observable();
+
+
     self.prodName = ko.observable();
     self.prodDescription = ko.observable();
     self.prodCategory = ko.observable();
@@ -15,36 +20,34 @@ function cartItemsVm() {
     self.categoryName = ko.observable();
     self.categoryDescription = ko.observable();
 
+    self.searchText = ko.observable();
+
     function productModel(data) {
 
         data = ko.mapping.fromJS(data);
 
         var price = data.price() === null ? 0.0 : data.price();
+        var path = data.imagePath() === null ? '/Content/Images/steak.jpeg' : data.imagePath();
 
-        data.isEditing = ko.observable(false);
         data.formattedPrice = ko.observable('R ' + price);
+        data.imagePath(path);
         data.remove = function (model) {
-
-            if (model)
-                self.product(model);
             if (model) {
                 $.ajax({
-                    url: '/api/ProductApi/' + self.product().id(),
+                    url: '/api/ProductApi/' + model.id(),
                     type: 'DELETE',
                     contentType: 'application/json;charset=utf-8',
                     dataType: 'json',
                     data: {},
                     success: function (response) {
                         if (typeof response !== 'string') {
-                            self.products.remove(model);
-                            self.product(null);
+                            self.filteredProducts.remove(model);
                         }
                     }
                 });
             }
         };
         data.edit = function (model) {
-            data.isEditing(true);
             self.product(model);
         };
 
@@ -52,8 +55,46 @@ function cartItemsVm() {
     }
 
     function categoryModel(data) {
+        data = ko.mapping.fromJS(data);
+        data.edit = function (data) {
+            self.category(data);
+        };
+
+        data.remove = function (model) {
+
+            if (model) {
+                $.ajax({
+                    url: '/api/CategoryApi/' + model.id,
+                    type: 'DELETE',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    data: {},
+                    success: function (response) {
+                        if (typeof response !== 'string') {
+                            self.categories.remove(model);
+                        }
+                    }
+                });
+            }
+        };
+
         return data;
+
     }
+
+    self.searchText.subscribe(function (value) {
+
+        if (value) {
+            value = value.toLowerCase();
+            var filteredProducts = ko.utils.arrayFilter(self.products(), function (item) {
+                return item.name().toLowerCase().includes(value) || (item.description() !== null && item.description().toLowerCase().includes(value));
+            });
+
+            self.filteredProducts(filteredProducts);
+        } else {
+            self.filteredProducts(self.products());
+        }
+    });
 
     $.getJSON('/api/CartItemApi/GetAll', function (response) {
 
@@ -70,6 +111,9 @@ function cartItemsVm() {
             self.products($.map(response, function (resp) {
                 return new productModel(resp);
             }));
+
+            //Initializes the second array
+            self.filteredProducts(self.products());
         }
     });
 
@@ -82,19 +126,45 @@ function cartItemsVm() {
         }
     });
 
+
+
     self.addProduct = function () {
 
-        var productVm = {
+        var data = ko.toJS({
             name: self.prodName(),
-            categoryId: self.prodCategory(),
+            categoryId: self.prodCategory().id(),
             price: self.prodPrice(),
             description: self.prodDescription()
-        };
+        });
 
-        $.post('/api/ProductApi', productVm).then(function (response) {
-            if (typeof response !== 'string') {
-                self.products.push(new productModel(response));
+        var formData = new FormData();
+        var file = document.getElementById("productPicture").files[0];
+        formData.append("productPicture", file);
+
+        if (data !== null)
+            for (var key in data) {
+                if (data[key] !== null)
+                    formData.append(key, data[key]);
+            }
+
+        $.ajax({
+            url: '/api/ProductApi',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                var formattedProduct = new productModel(response);
+                self.filteredProducts.push(formattedProduct);
                 $('#productModal').modal('hide');
+                self.prodCategory(null);
+                $('#catName').val('');
+                self.prodName(null);
+                self.prodPrice(null);
+                self.prodDescription(null);
+
+                $('#productPicture').val('');
             }
         });
     };
@@ -105,6 +175,7 @@ function cartItemsVm() {
             Name: self.product().name(),
             Description: self.product().description(),
             Price: self.product().price()
+
         });
 
         $.ajax({
@@ -115,7 +186,7 @@ function cartItemsVm() {
             data: data,
             success: function (response) {
                 if (typeof response !== 'string') {
-                    ko.utils.arrayForEach(self.products(), function (item) {
+                    ko.utils.arrayForEach(self.filteredProducts(), function (item) {
                         if (item.id() === response.id) {
                             item.name(response.name);
                             item.description(response.description);
@@ -123,6 +194,7 @@ function cartItemsVm() {
                         }
                     });
                 }
+                self.product(null);
                 $('#productEditModal').modal('hide');
             }
         });
@@ -132,14 +204,45 @@ function cartItemsVm() {
 
         var categoryVm = {
             name: self.categoryName(),
-            categoryId: self.categoryDescription()
+            description: self.categoryDescription()
         };
 
         $.post('/api/CategoryApi', categoryVm).then(function (response) {
             if (typeof response !== 'string') {
-                self.products.push(new categoryModel(response));
+                self.categories.push(new categoryModel(response));
+                $('#categoryModal').modal('hide');
+                self.categoryName(null);
+                self.categoryDescription(null);
             }
         });
+    };
+    self.saveCategory = function () {
+
+        var category = JSON.stringify({
+            name: self.category().name(),
+            description: self.category().description()
+        });
+
+        $.ajax({
+            url: '/api/CategoryApi/' + self.category().id(),
+            type: 'PUT',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            data: category,
+            success: function (response) {
+                if (typeof response !== 'string') {
+                    ko.utils.arrayForEach(self.categories(), function (item) {
+                        if (item.id()=== response.id) {
+                            item.name(response.name);
+                            item.description(response.description);
+                        }
+                    });
+                }
+                self.category(null);
+                $('#categoryEditModal').modal('hide');
+            }
+        });
+       
     };
 }
 

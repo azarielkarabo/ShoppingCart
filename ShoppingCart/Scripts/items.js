@@ -8,11 +8,16 @@ function ItemsViewModel() {
     self.cartItems = ko.observableArray();
 
     function nodeModel(data) {
-        data.price = 'R ' + data.price;
+
+        data = ko.mapping.fromJS(data);
+
+        data.price('R ' + data.price());
+        var path = data.imagePath() === null ? '/Content/Images/steak.jpeg' :data.imagePath();
+        data.imagePath(path);
         data.addToCart = function (model) {
 
             var cartItem = {
-                ProductId: model.id,
+                ProductId: model.id(),
                 Quantity: 1
             };
 

@@ -16,7 +16,7 @@
                 <li><a href="#productsTab" data-toggle="tab">Products</a></li>
                 <li><a href="#categoriesTab" data-toggle="tab">Categories</a></li>
             </ul>
-            <div class="tab-content " style="margin-top:30px;">
+            <div class="tab-content " style="margin-top:30px;max-height:490px;overflow-y:auto">
 
                 <div class="tab-pane active" id="cartItemsTab">
 
@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--ko foreach:$root.items-->
+                            <!--ko foreach:$root.filteredItems-->
                             <tr>
                                 <th scope="row"></th>
                                 <td data-bind="text:name"></td>
@@ -45,8 +45,18 @@
                 </div>
 
                 <div class="tab-pane " id="productsTab">
-
-                    <div class="col-md-3"><button class="btn btn-primary" data-toggle="modal" data-target="#productModal">Add Product</button></div>
+                    <div class="col-md-12" style="position:fixed;background:white">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#productModal">Add Product</button>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="pull-right">
+                                    <input type="text" data-bind="value:$root.searchText,valueUpdate:'afterkeydown'" class="form-control col-md-5" placeholder="name or description" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <br />
                     <br />
                     <hr />
@@ -57,14 +67,14 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th width="75px">Price</th>
-                                <th scope="col" width="200px"></th>
+                                <th scope="col" width="50px"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--ko foreach:products-->
+                            <!--ko foreach:filteredProducts-->
                             <tr>
                                 <th scope="row">
-                                    <img class="img-rounded" src="~/Content/Images/steak.jpeg" height="60px" width="70px" />
+                                    <img class="img-rounded" data-bind="attr: {src:imagePath}" height="60px" width="70px" />
                                 </th>
                                 <td data-bind="text:name"></td>
                                 <td data-bind="text:description"></td>
@@ -102,7 +112,7 @@
                                 <th scope="row"></th>
                                 <td data-bind="text:name"></td>
                                 <td data-bind="text:description"></td>
-                                <td><span><i class="fa fa-pencil fa-sm"></i></span>  <span> <i class="fa fa-trash fa-sm"></i></span> </td>
+                                <td><span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#categoryEditModal"></i></span>  <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span> </td>
                             </tr>
                             <!--/ko-->
                         </tbody>
@@ -128,7 +138,7 @@
                         <label for="recipient-name" class="control-label">Category </label>
                         <select data-bind="options: $root.categories ,
                        optionsText: 'name',
-                       value: 'id',
+                       value: $root.prodCategory,
                        optionsCaption: '(Please select)'" id="catName" class="form-control pull-right"></select>
                     </div>
                     <div class="form-group">
@@ -142,11 +152,11 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Price </label>
-                        <input type="number" data-bind="value:$root.prodPrice" class="form-control" id="recipient-name">
+                        <input type="text" data-bind="value:$root.prodPrice" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">File </label>
-                        <input type="file">
+                        <input type="file" id="productPicture">
                     </div>
 
                 </form>
@@ -163,7 +173,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content col-md-7">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
             </div>
             <div class="modal-body">
                 <form>
@@ -223,6 +233,35 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-bind="click:$root.addCategory">Add Category</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="categoryEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-7">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <!--ko with:$root.category-->
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Name </label>
+                        <input type="text" data-bind="value:name" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description </label>
+                        <textarea class="form-control" data-bind="value:description" id="message-text"></textarea>
+                    </div>
+                    <!--/ko-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click:$root.saveCategory">Save Category</button>
             </div>
         </div>
     </div>

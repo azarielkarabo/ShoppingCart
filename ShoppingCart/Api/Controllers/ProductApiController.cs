@@ -3,8 +3,10 @@ using ShoppingCart.Api.v1.Model;
 using ShoppingCart.Data;
 using ShoppingCart.Models;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace ShoppingCart.Api.Controllers
@@ -36,11 +38,27 @@ namespace ShoppingCart.Api.Controllers
         [Route("")]
         public override HttpResponseMessage Create([FromBody] ProductViewModel model)
         {
+            string path = null;
+
+            var file = HttpContext.Current.Request.Files[0];
+           
+
+            if (file.ContentLength != 0)
+            {
+                string fileName =string.Concat( Guid.NewGuid().ToString(),Path.GetExtension(file.FileName));
+                
+                path = HttpContext.Current.Server.MapPath("~/Content/Images/Products/" + fileName);
+                file.SaveAs(path);
+
+                path = "/Content/Images/Products/" + fileName;
+            }
+            
 
             var category = dbContext.Categories.Find(model.CategoryId);
 
             var entity = Mapper.Map<Product>(model);
             entity.Category = category;
+            entity.ImagePath = path;
             entity.SetId();
 
             dbContext.Products.Add(entity);

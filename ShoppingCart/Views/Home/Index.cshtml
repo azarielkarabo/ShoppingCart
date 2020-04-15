@@ -4,6 +4,7 @@
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>
 <script src="~/Scripts/items.js"></script>
 
 <br />
@@ -36,7 +37,7 @@
         <span class="p-cart" data-bind="text:categoryName"></span>
         <span class="img">
             <span class="pull-right">
-                <img class="img-rounded" src="~/Content/Images/steak.jpeg" height="120px" width="140px" />
+                <img class="img-rounded" data-bind="attr: {src:imagePath}" height="120px" width="135px" />
             </span>
         </span>
         <span class="p-name" data-bind="text:name"></span>
@@ -46,8 +47,8 @@
             <a data-bind="click:addToCart">Add To Cart</a>
             <span class="p-price" data-bind="text:price"></span>
         </div>
-        <span class="p-unit">
-            @*@item.UnitsInStock
+     @* <span class="p-unit">
+            @item.UnitsInStock
                 @if (item.UnitsInStock > 1)
                 {
                     <text>units</text>
@@ -55,8 +56,9 @@
                 else
                 {
                     <text>unit</text>
-                }*@
+                }
         </span>
+        *@
     </div>
     <!--/ko-->
     @*   }*@
