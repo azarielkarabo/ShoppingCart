@@ -39,8 +39,10 @@ namespace ShoppingCart.Api.Controllers
                 if (cartItem != null)
                 {
                     var productPrice = product.Price ?? 0;
-                    cartItem.Quantity++;
+                    cartItem.Quantity = cartItem.Quantity + (model.Quantity);
                     cartItem.UnitPrice = productPrice * cartItem.Quantity;
+
+                    model = Mapper.Map<CartItemViewModel>(cartItem);
                 }
                 else
                 {
@@ -52,6 +54,7 @@ namespace ShoppingCart.Api.Controllers
 
                     entity.SetId();
                     dbContext.ShoppingCartItems.Add(entity);
+
                     model = Mapper.Map<CartItemViewModel>(entity);
                 }
 
@@ -59,6 +62,19 @@ namespace ShoppingCart.Api.Controllers
             }
 
             return Success(model);
+        }
+
+        [HttpDelete]
+        [Route("ClearCart")]
+        public HttpResponseMessage DeleteAll()
+        {
+            var cartItems = dbContext.ShoppingCartItems.ToList();
+            foreach (var item in cartItems)
+            {
+                dbContext.ShoppingCartItems.Remove(item);
+                dbContext.SaveChanges();
+            }
+            return Success();
         }
     }
 }

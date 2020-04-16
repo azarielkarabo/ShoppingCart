@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/knockout-3.5.1.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>
+<script src="~/Scripts/cartItems.js"></script>
+<h2>Shopping Cart</h2>
+
+<!--ko if:$root.items().length===0-->
+<br />
+<div id="EmptyDataMsg" class="alert alert-info">
+    <strong>Welcome!</strong> Your shopping cart is currently empty. Let's start shopping
+</div>
+<!--/ko-->
+
+
+<table class="cart-page">
+    <tr>
+        <th>Item Name</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+    </tr>
+    <tbody data-bind="foreach:$root.items">
+        <tr>
+            <td><span class="p-name" data-bind="text:name"></span> </td>
+            <td><span class="p-name" data-bind="text:$root.toPrice(unitPrice())"></span> </td>
+            <td>
+                <a class="quantity" data-bind="click:add">+</a>
+                <span class="p-name" data-bind="text:quantity"></span>
+                <a class="quantity" data-bind="click:subtract">-</a>
+                <a class="remove" data-bind="click:remove">Remove</a>
+            </td>
+        </tr>
+    </tbody>
+    <tr><td>Total: </td><td id="totalPrice" colspan="2"><span data-bind="text:$root.total"></span></td></tr>
+</table>
+<div class="button">
+    @Html.ActionLink("Clear Cart", "Clear", "Checkout", null, new { @class = "btn btn-default", @data_bind = "click:$root.clearCart" })
+    @Html.ActionLink("Countinue", "Purchase", "Checkout", null, new { @class = "btn btn-info" })
+</div>
+
+

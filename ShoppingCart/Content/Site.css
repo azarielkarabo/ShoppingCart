@@ -180,18 +180,18 @@ textarea {
     width: 100%;
     margin: 20px 0;
     font-weight: bold;
-    color: #2f2f2f;
+    color: #1e85cec7;
 }
 .cart-page th { transition: .3s; -webkit-transition: .3s }
-.cart-page th:hover {
-    background: rgba(45, 187, 155, 0.5);
-}
-.cart-page, .cart-page th, .cart-page td {
-    border: 1px solid #2dbb9b;
-    border-collapse: collapse;
-    text-align: center;
-    padding: 10px;
-}
+    .cart-page th:hover {
+        background: #1e85cec7;
+    }
+    .cart-page, .cart-page th, .cart-page td {
+        border: 1px solid #1e85cec7;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 10px;
+    }
 .cart-page .quantity {
     vertical-align: middle;
     background: #2dbb9b;

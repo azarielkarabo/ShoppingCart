@@ -430,6 +430,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\adminCruds.js" />
     <Content Include="Scripts\cartItems.js" />
     <Content Include="Scripts\items.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -473,6 +474,7 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Index - Copy.cshtml" />
+    <Content Include="Views\Home\CartItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
