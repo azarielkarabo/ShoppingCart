@@ -3,6 +3,7 @@ using ShoppingCart.Api.v1.Model;
 using ShoppingCart.Data;
 using ShoppingCart.Models;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -40,20 +41,25 @@ namespace ShoppingCart.Api.Controllers
         {
             string path = null;
 
-            var file = HttpContext.Current.Request.Files[0];
-           
+            var httpFileCollection = HttpContext.Current.Request.Files;
 
-            if (file.ContentLength != 0)
+            if (httpFileCollection.Count != 0)
             {
-                string fileName =string.Concat( Guid.NewGuid().ToString(),Path.GetExtension(file.FileName));
-                
+                var file = httpFileCollection[0];
+                string fileName = string.Concat(Guid.NewGuid().ToString(), Path.GetExtension(file.FileName));
+
                 path = HttpContext.Current.Server.MapPath("~/Content/Images/Products/" + fileName);
                 file.SaveAs(path);
 
                 path = "/Content/Images/Products/" + fileName;
             }
-            
 
+            var stringPrice = HttpContext.Current.Request.Form["price"].Trim();
+
+            if (!string.IsNullOrWhiteSpace(stringPrice))
+            {
+                model.Price = double.Parse(stringPrice, CultureInfo.InvariantCulture);
+            }
             var category = dbContext.Categories.Find(model.CategoryId);
 
             var entity = Mapper.Map<Product>(model);

@@ -64,7 +64,7 @@ function cartItemsVm() {
 
             if (model) {
                 $.ajax({
-                    url: '/api/CategoryApi/' + model.id,
+                    url: '/api/CategoryApi/' + model.id(),
                     type: 'DELETE',
                     contentType: 'application/json;charset=utf-8',
                     dataType: 'json',
