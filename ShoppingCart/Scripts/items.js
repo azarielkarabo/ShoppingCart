@@ -24,6 +24,7 @@ function ItemsViewModel() {
             $.post("api/CartItemApi", cartItem).then(function (response) {
                 if (response.message) {
                     alert(response.message);
+                    window.location.href = "/Account/Login";
                 } else {
                     self.cartItems.push(response);
                 }

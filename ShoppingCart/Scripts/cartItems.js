@@ -104,6 +104,7 @@ function cartItemsVm() {
             success: function (response) {
                 if (response.message) {
                     alert(response.message);
+                    window.location.href = "/Account/Login";
                 } else {
                     self.items.removeAll();
                     self.total(self.toPrice(0.0));
@@ -117,6 +118,7 @@ function cartItemsVm() {
         //This helps when we get authorization errors
         if (response.message) {
             alert(response.message);
+            window.location.href = "/Account/Login";
         } else {
             self.items($.map(response, function (resp) {
                 return new itemModel(resp);

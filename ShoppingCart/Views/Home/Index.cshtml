@@ -37,7 +37,7 @@
         <span class="p-cart" data-bind="text:categoryName"></span>
         <span class="img">
             <span class="pull-right">
-                <img class="img-rounded" data-bind="attr: {src:imagePath}" height="120px" width="135px" />
+                <img class="img-rounded" data-bind="attr: {src:imagePath}" style="height:120px;width:135px" />
             </span>
         </span>
         <span class="p-name" data-bind="text:name"></span>
@@ -47,17 +47,17 @@
             <a data-bind="click:addToCart">Add To Cart</a>
             <span class="p-price" data-bind="text:price"></span>
         </div>
-     @* <span class="p-unit">
-            @item.UnitsInStock
-                @if (item.UnitsInStock > 1)
-                {
-                    <text>units</text>
-                }
-                else
-                {
-                    <text>unit</text>
-                }
-        </span>
+        @* <span class="p-unit">
+                @item.UnitsInStock
+                    @if (item.UnitsInStock > 1)
+                    {
+                        <text>units</text>
+                    }
+                    else
+                    {
+                        <text>unit</text>
+                    }
+            </span>
         *@
     </div>
     <!--/ko-->

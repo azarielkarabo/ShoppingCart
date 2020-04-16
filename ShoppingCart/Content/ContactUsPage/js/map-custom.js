@@ -33,7 +33,7 @@
             map_zoom = 14;
 
         var locations = [
-            ['Honchos Restuarent', latitude, longitude, 2]
+            ['Food Order Restuarant', latitude, longitude, 2]
         ];
 
         if (selector_map !== undefined) {
