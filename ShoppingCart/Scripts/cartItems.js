@@ -12,6 +12,7 @@ function cartItemsVm() {
         data = ko.mapping.fromJS(data);
 
         total = total + data.unitPrice();
+
         self.total(self.toPrice(total));
 
         data.remove = function (model) {
@@ -37,13 +38,17 @@ function cartItemsVm() {
                 Quantity: 1
             };
             $.post("/api/CartItemApi", cartItem).then(function (response) {
-                ko.utils.arrayForEach(self.items(), function (item) {
-                    if (item.productId() === response.productId) {
-                        item.quantity(response.quantity);
-                        item.unitPrice(response.unitPrice);
-                    }
-                    self.calculateSum();
-                });
+                if (response.message) {
+                    alert(response.message);
+                } else {
+                    ko.utils.arrayForEach(self.items(), function (item) {
+                        if (item.productId() === response.productId) {
+                            item.quantity(response.quantity);
+                            item.unitPrice(response.unitPrice);
+                        }
+                        self.calculateSum();
+                    });
+                }
             });
         };
 
@@ -52,19 +57,25 @@ function cartItemsVm() {
                 ProductId: model.productId(),
                 Quantity: -1
             };
-            if (model.quantity() > 1) {
+            if (model.quantity() <= 1) {
+                alert('You cannot subtract unit 0 , to remove click on the remove button');
+            } else {
                 $.post("/api/CartItemApi", cartItem).then(function (response) {
-
-                    ko.utils.arrayForEach(self.items(), function (item) {
-                        if (item.productId() === response.productId) {
-                            item.quantity(response.quantity);
-                            item.unitPrice(response.unitPrice);
-                        }
-                    });
-                    self.calculateSum();
+                    if (response.message) {
+                        alert(response.message);
+                    } else {
+                        ko.utils.arrayForEach(self.items(), function (item) {
+                            if (item.productId() === response.productId) {
+                                item.quantity(response.quantity);
+                                item.unitPrice(response.unitPrice);
+                            }
+                        });
+                        self.calculateSum();
+                    }
                 });
             }
         };
+
         return data;
     }
 
@@ -91,7 +102,9 @@ function cartItemsVm() {
             dataType: 'json',
             data: {},
             success: function (response) {
-                if (typeof response !== 'string') {
+                if (response.message) {
+                    alert(response.message);
+                } else {
                     self.items.removeAll();
                     self.total(self.toPrice(0.0));
                 }
@@ -102,7 +115,9 @@ function cartItemsVm() {
     $.getJSON('/api/CartItemApi/GetAll', function (response) {
 
         //This helps when we get authorization errors
-        if (typeof response !== 'string') {
+        if (response.message) {
+            alert(response.message);
+        } else {
             self.items($.map(response, function (resp) {
                 return new itemModel(resp);
             }));
@@ -115,4 +130,4 @@ function cartItemsVm() {
 $(document).ready(function () {
     var viewmodel = new cartItemsVm();
     ko.applyBindings(viewmodel);
-})
+});

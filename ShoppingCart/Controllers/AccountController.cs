@@ -431,6 +431,12 @@ namespace ShoppingCart.Controllers
             return RedirectToAction("Index", "Product");
         }
 
+        public ApplicationUser GetUser()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return user;
+        }
+
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]

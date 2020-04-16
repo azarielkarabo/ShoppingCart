@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using ShoppingCart.Api.v1.Model;
+using ShoppingCart.Controllers;
 using ShoppingCart.Data;
 using ShoppingCart.Models;
 using System;
@@ -31,11 +33,17 @@ namespace ShoppingCart.Api.Controllers
         [Route("")]
         public override HttpResponseMessage Create([FromBody] CartItemViewModel model)
         {
+            var user = new AccountController().GetUser();
+            if (user == null)
+            {
+                throw new Exception("User should log in first");
+            }
+
             var product = dbContext.Products.Find(model.ProductId);
 
             if (product != null)
             {
-                var cartItem = dbContext.ShoppingCartItems.FirstOrDefault(c => c.Product.Id == product.Id);
+                var cartItem = dbContext.ShoppingCartItems.FirstOrDefault(c => c.Product.Id == product.Id && c.ApplicationUser == user);
                 if (cartItem != null)
                 {
                     var productPrice = product.Price ?? 0;
@@ -51,6 +59,7 @@ namespace ShoppingCart.Api.Controllers
                     entity.Description = product?.Description;
                     entity.Name = product?.Name;
                     entity.UnitPrice = product.Price ?? 0.00 * entity.Quantity;
+                    entity.ApplicationUser = user;
 
                     entity.SetId();
                     dbContext.ShoppingCartItems.Add(entity);

@@ -33,7 +33,6 @@ namespace ShoppingCart.Data
         {
             return new ApplicationDbContext();
         }
-
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Category> Categories { get; set; }

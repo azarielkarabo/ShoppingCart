@@ -22,7 +22,15 @@ namespace ShoppingCart.Controllers
             return View();
         }
 
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
         public ActionResult CartItems()
+        {
+            return View();
+        }
+        public ActionResult Contact()
         {
             return View();
         }

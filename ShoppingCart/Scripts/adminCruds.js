@@ -39,7 +39,9 @@ function adminCrudsVM() {
                     dataType: 'json',
                     data: {},
                     success: function (response) {
-                        if (typeof response !== 'string') {
+                        if (response.message) {
+                            alert(response.message);
+                        } else {
                             self.filteredProducts.remove(model);
                         }
                     }
@@ -69,7 +71,9 @@ function adminCrudsVM() {
                     dataType: 'json',
                     data: {},
                     success: function (response) {
-                        if (typeof response !== 'string') {
+                        if (response.message) {
+                            alert(response.message);
+                        } else {
                             self.categories.remove(model);
                         }
                     }
@@ -98,7 +102,9 @@ function adminCrudsVM() {
     $.getJSON('/api/ProductApi', function (response) {
 
         //This helps when we get authorization errors
-        if (typeof response !== 'string') {
+        if (response.message) {
+            alert(response.message);
+        } else {
             self.products($.map(response, function (resp) {
                 return new productModel(resp);
             }));
@@ -110,7 +116,9 @@ function adminCrudsVM() {
 
     $.getJSON('/api/CategoryApi', function (response) {
         //This helps when we get authorization errors
-        if (typeof response !== 'string') {
+        if (response.message) {
+            alert(response.message);
+        } else {
             self.categories($.map(response, function (resp) {
                 return new categoryModel(resp);
             }));

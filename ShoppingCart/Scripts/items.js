@@ -12,7 +12,7 @@ function ItemsViewModel() {
         data = ko.mapping.fromJS(data);
 
         data.price('R ' + data.price());
-        var path = data.imagePath() === null ? '/Content/Images/steak.jpeg' :data.imagePath();
+        var path = data.imagePath() === null ? '/Content/Images/steak.jpeg' : data.imagePath();
         data.imagePath(path);
         data.addToCart = function (model) {
 
@@ -22,7 +22,12 @@ function ItemsViewModel() {
             };
 
             $.post("api/CartItemApi", cartItem).then(function (response) {
-                self.cartItems.push(response);
+                if (response.message) {
+                    alert(response.message);
+                } else {
+                    self.cartItems.push(response);
+                }
+
             });
         };
 
@@ -32,15 +37,18 @@ function ItemsViewModel() {
     $.getJSON('/api/ProductApi', function (response) {
 
         //This helps when we get authorization errors
-        if (typeof response !== 'string') {
+        if (response.message) {
+            alert(response.message);
+        } else {
             self.items($.map(response, function (resp) {
                 return new nodeModel(resp);
             }));
         }
-
     });
     $.getJSON('/api/CategoryApi/Pull', function (response) {
-        if (typeof response !== 'string') {
+        if (response.message) {
+            alert(response.message);
+        } else {
             self.categories(response);
         }
     });
