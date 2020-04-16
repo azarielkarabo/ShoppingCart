@@ -43,8 +43,8 @@ namespace ShoppingCart.Api
         {
             return _dbContext.Set<TEntity>()
                                             .OrderByDescending(c => c.LastUpdatedTimestamp)
-                                .ThenByDescending(c => c.CreatedTime)
-                                .ToList()
+                                    .ThenByDescending(c => c.CreatedTime)
+                              .ToList()
                         .Select(
                     c => Mapper.Map<TViewModel>(c)
                 ).ToList();
