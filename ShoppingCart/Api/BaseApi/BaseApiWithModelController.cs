@@ -9,13 +9,13 @@ using System.Web.Http;
 namespace ShoppingCart.Api
 {
     [Authorize]
-    public abstract class BaseApiWithModelController<TClass, TViewModel> : BaseApiController where TClass : BaseModel
+    public abstract class BaseApiWithModelController<TEntity, TViewModel> : BaseApiController where TEntity : BaseModel
     {
         [HttpGet]
         [Route("")]
         public virtual HttpResponseMessage GetAll()
         {
-            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TEntity, TViewModel>>(x =>
               {
                   var data = x.GetAll();
                   return Success(data);
@@ -26,7 +26,7 @@ namespace ShoppingCart.Api
         [Route("id")]
         public virtual HttpResponseMessage Get(Guid id)
         {
-            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TEntity, TViewModel>>(x =>
             {
                 var data = x.Get(id);
                 return Success(data);
@@ -37,7 +37,7 @@ namespace ShoppingCart.Api
         [Route("id")]
         public virtual HttpResponseMessage Update(Guid id, [FromBody]TViewModel model)
         {
-            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TEntity, TViewModel>>(x =>
             {
                 var data = x.Update(id, model);
                 return Success(data);
@@ -48,7 +48,7 @@ namespace ShoppingCart.Api
         [Route("")]
         public virtual HttpResponseMessage Create([FromBody]TViewModel model)
         {
-            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TEntity, TViewModel>>(x =>
             {
                 var data = x.Create(model);
                 return CreateSuccess(data);
@@ -59,7 +59,7 @@ namespace ShoppingCart.Api
         [Route("id")]
         public virtual HttpResponseMessage Remove(Guid id)
         {
-            return Execute<ServiceRepository<TClass, TViewModel>>(x =>
+            return Execute<ServiceRepository<TEntity, TViewModel>>(x =>
             {
                 x.Remove(id);
                 return Success();

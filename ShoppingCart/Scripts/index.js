@@ -55,6 +55,8 @@ function ItemsViewModel() {
     //property used to search products
     self.searchText = ko.observable();
 
+    //models that helps with the functions that are found in the list
+    //they even modify the objects that comes from the server
 
     function nodeModel(data) {
 
@@ -185,7 +187,9 @@ function ItemsViewModel() {
     }
 
     function orderModel(data) {
+
         data = ko.mapping.fromJS(data);
+
         data.details = function (data) {
             alert("Details to be added later");
         };
@@ -196,7 +200,9 @@ function ItemsViewModel() {
     }
 
     function categoryModel(data) {
+
         data = ko.mapping.fromJS(data);
+
         data.edit = function (data) {
             self.category(data);
         };

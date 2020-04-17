@@ -182,12 +182,12 @@ namespace ShoppingCart.Controllers
                         var roleresult = RoleManager.Create(role);
                     }
 
-                    var roleResult = await UserManager.AddToRoleAsync(user.Id, roleAdmin);
-                    if (!roleResult.Succeeded)
-                    {
-                        ModelState.AddModelError("", result.Errors.First());
-                        return View();
-                    }
+                    //var roleResult = await UserManager.AddToRoleAsync(user.Id, roleAdmin);
+                    //if (!roleResult.Succeeded)
+                    //{
+                    //    ModelState.AddModelError("", result.Errors.First());
+                    //    return View();
+                    //}
                     else
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
