@@ -25,12 +25,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Shopping Cart", "CartItems", "Home")</li>
-                    <li>@Html.ActionLink("Suppliers", "Suppliers", "Home")</li>
+                    <li>
+                        <a href="@Url.Action("CartItems", "Home")">
+                            <i class="fa fa-shopping-cart fa-lg"></i>
+                            <span>
+                                <strong>Shopping Cart</strong>
+                            </span>
+                        </a>
+                    </li>
                     <li>@Html.ActionLink("About", "AboutUs", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-             
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

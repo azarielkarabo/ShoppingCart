@@ -58,7 +58,7 @@ function cartItemsVm() {
                 Quantity: -1
             };
             if (model.quantity() <= 1) {
-                alert('You cannot subtract unit 0 , to remove click on the remove button');
+                alert('You cannot subtract quantity to 0 ,rather click on the remove button');
             } else {
                 $.post("/api/CartItemApi", cartItem).then(function (response) {
                     if (response.message) {

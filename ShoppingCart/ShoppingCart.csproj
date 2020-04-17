@@ -325,7 +325,6 @@
     <Compile Include="Api\Controllers\CategoryApiController.cs" />
     <Compile Include="Api\Controllers\ContactApiController.cs" />
     <Compile Include="Api\Controllers\OrderApiController.cs" />
-    <Compile Include="Api\Controllers\OrderDetailApiController.cs" />
     <Compile Include="Api\Controllers\ProductApiController.cs" />
     <Compile Include="Api\RepositoryService\IServiceRepository.cs" />
     <Compile Include="Api\RepositoryService\ServiceRepository.cs" />
@@ -384,7 +383,6 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SendContactService.cs" />
     <Compile Include="Services\MessageService.cs" />
@@ -556,6 +554,7 @@
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\summary.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

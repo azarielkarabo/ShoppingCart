@@ -10,7 +10,7 @@ namespace ShoppingCart.Models
     {
         public int Quantity { get; set; }
         public double UnitPrice { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public string UserId { get; set; }
         public virtual Product Product { get; set; }
     }
 }

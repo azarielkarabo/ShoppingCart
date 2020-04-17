@@ -60,9 +60,9 @@ namespace ShoppingCart
                     cfg.CreateMap<OrderViewModel, Order>()
                     .ForMember(c => c.Id, d => d.Ignore());
 
-                    cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
-                    cfg.CreateMap<OrderDetailViewModel, OrderDetail>()
-                    .ForMember(c => c.Id, d => d.Ignore());
+                    cfg.CreateMap<OrderDetail, CartItem>();
+                    cfg.CreateMap<CartItem, OrderDetail>();
+
                 });
             }
         }

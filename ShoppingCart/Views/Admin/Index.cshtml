@@ -12,11 +12,53 @@
     <div class="container">
         <div class="col-md-12 maxheight" style="padding:5px">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#productsTab" data-toggle="tab">Products</a></li>
+                <li class="active"><a href="#ordersTab" data-toggle="tab">Orders</a></li>
+                <li><a href="#productsTab" data-toggle="tab">Products</a></li>
                 <li><a href="#categoriesTab" data-toggle="tab">Categories</a></li>
             </ul>
             <div class="tab-content " style="margin-top:30px;max-height:490px;overflow-y:auto">
-                <div class="tab-pane active" id="productsTab">
+
+
+                <div class="tab-pane  active" id="ordersTab">
+
+                    <br />
+                    <br />
+                    <hr />
+                    <table class="cart-page">
+                        <thead>
+
+                            <tr>
+                                <th></th>
+                                <th scope="col">Firstname</th>
+                                <th scope="col">Lastname</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Province</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                            <!--ko foreach:orders-->
+                            <tr>
+                                <td><i class="fa fa-search-plus"></i></td>
+                                <td class="p-name" data-bind="text:firstName"></td>
+                                <td class="p-name" data-bind="text:lastName"></td>
+                                <td class="p-name" data-bind="text:address"></td>
+                                <td class="p-name" data-bind="text:city"></td>
+                                <td class="p-name" data-bind="text:state"></td>
+                                <td class="p-name" data-bind="text:country"></td>
+                                <td class="p-name" data-bind="text:phone"></td>
+                                <td class="p-name" data-bind="text:email"></td>
+                            </tr>
+                            <!--/ko-->
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="tab-pane" id="productsTab">
                     <div class="col-md-12" style="position:fixed;background:white">
                         <div class="form-group">
                             <div class="col-md-3">
@@ -35,27 +77,28 @@
                     <table class="cart-page">
                         <thead>
                             <tr>
+                                <th scope="col" width="80px"></th>
                                 <th scope="col" width="100px"></th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th width="80px">Price</th>
-                                <th scope="col" width="50px"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <!--ko foreach:filteredProducts-->
                             <tr>
+                                <td>
+                                    <span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#productEditModal"></i></span>
+                                    &nbsp;    <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span>
+                                </td>
                                 <th scope="row">
                                     <img class="img-rounded" data-bind="attr: {src:imagePath}" height="60px" width="70px" />
                                 </th>
                                 <td data-bind="text:name" class="p-name"></td>
                                 <td data-bind="text:description" class="p-name"></td>
                                 <td data-bind="text:formattedPrice" class="p-name"></td>
-                          
-                                <td>
-                                    <span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#productEditModal"></i></span>
-                                    <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span>
-                                </td>
+
+
                             </tr>
                             <!--/ko-->
                         </tbody>
@@ -72,17 +115,17 @@
                         <thead>
 
                             <tr>
+                                <th scope="col" width="80px"></th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col" width="85px"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <!--ko foreach:categories-->
                             <tr>
+                                <td><span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#categoryEditModal"></i></span> &nbsp;  <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span> </td>
                                 <td data-bind="text:name" class="p-name"></td>
                                 <td data-bind="text:description" class="p-name"></td>
-                                <td><span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#categoryEditModal"></i></span>  <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span> </td>
                             </tr>
                             <!--/ko-->
                         </tbody>

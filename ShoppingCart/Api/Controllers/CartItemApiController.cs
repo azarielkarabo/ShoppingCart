@@ -26,24 +26,31 @@ namespace ShoppingCart.Api.Controllers
         [Route("GetAll")]
         public override HttpResponseMessage GetAll()
         {
-            return base.GetAll();
+
+            var userId = User.Identity.GetUserId();
+
+            var items = dbContext.ShoppingCartItems
+                                            .Where(c => c.UserId == userId)
+                                        .ToList()
+                                   .Select(
+                                e =>
+                                Mapper.Map<CartItemViewModel>(e))
+                          .ToList();
+
+            return Success(items);
         }
 
         [HttpPost]
         [Route("")]
         public override HttpResponseMessage Create([FromBody] CartItemViewModel model)
         {
-            var user = new AccountController().GetUser();
-            if (user == null)
-            {
-                throw new Exception("User should log in first");
-            }
+            var userId = User.Identity.GetUserId();
 
             var product = dbContext.Products.Find(model.ProductId);
 
             if (product != null)
             {
-                var cartItem = dbContext.ShoppingCartItems.FirstOrDefault(c => c.Product.Id == product.Id && c.ApplicationUser == user);
+                var cartItem = dbContext.ShoppingCartItems.FirstOrDefault(c => c.Product.Id == product.Id && c.UserId == userId);
                 if (cartItem != null)
                 {
                     var productPrice = product.Price ?? 0;
@@ -59,7 +66,7 @@ namespace ShoppingCart.Api.Controllers
                     entity.Description = product?.Description;
                     entity.Name = product?.Name;
                     entity.UnitPrice = product.Price ?? 0.00 * entity.Quantity;
-                    entity.ApplicationUser = user;
+                    entity.UserId = userId;
 
                     entity.SetId();
                     dbContext.ShoppingCartItems.Add(entity);

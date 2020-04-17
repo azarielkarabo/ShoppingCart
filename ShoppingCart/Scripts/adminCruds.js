@@ -5,7 +5,7 @@ function adminCrudsVM() {
     self.products = ko.observableArray();
     self.filteredProducts = ko.observableArray();
     self.categories = ko.observableArray();
-
+    self.orders = ko.observableArray();
 
     self.product = ko.observable();
     self.category = ko.observable();
@@ -85,6 +85,17 @@ function adminCrudsVM() {
 
     }
 
+    function orderModel(data) {
+        data = ko.mapping.fromJS(data);
+        data.details = function (data) {
+            alert("Details to be added later");
+        };
+
+
+        return data;
+
+    }
+
     self.searchText.subscribe(function (value) {
 
         if (value) {
@@ -121,6 +132,17 @@ function adminCrudsVM() {
         } else {
             self.categories($.map(response, function (resp) {
                 return new categoryModel(resp);
+            }));
+        }
+    });
+
+
+    $.getJSON('/api/OrderApi', function (response) {
+        if (response.message) {
+            alert(response.message);
+        } else {
+            self.orders($.map(response, function (resp) {
+                return new orderModel(resp);
             }));
         }
     });
@@ -205,7 +227,9 @@ function adminCrudsVM() {
         };
 
         $.post('/api/CategoryApi', categoryVm).then(function (response) {
-            if (typeof response !== 'string') {
+            if (response.message) {
+                alert(response.message);
+            } else {
                 self.categories.push(new categoryModel(response));
                 $('#categoryModal').modal('hide');
                 self.categoryName(null);

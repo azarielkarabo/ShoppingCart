@@ -8,23 +8,6 @@
 <script src="~/Scripts/items.js"></script>
 
 <br />
-<form action="/Home/Category" method="get" id="category" class="option">
-    <div class="row">
-        <div class="form-group form-control-static">
-            <label class="col-xs-1">
-                <span>Category</span>
-            </label>
-            <div class="col-xs-2">
-
-                <select data-bind="options: $root.categories ,
-                       optionsText: 'name',
-                       value: 'id',
-                       optionsCaption: '(Please select)'" id="catName" class="form-control pull-right"></select>
-            </div>
-        </div>
-    </div>
-</form>
-
 <!--ko if:$root.items().length===0 -->
 <br />
 <div id="EmptyDataMsg" class="alert alert-info">
@@ -47,33 +30,8 @@
             <a data-bind="click:addToCart">Add To Cart</a>
             <span class="p-price" data-bind="text:price"></span>
         </div>
-        @* <span class="p-unit">
-                @item.UnitsInStock
-                    @if (item.UnitsInStock > 1)
-                    {
-                        <text>units</text>
-                    }
-                    else
-                    {
-                        <text>unit</text>
-                    }
-            </span>
-        *@
     </div>
     <!--/ko-->
-    @*   }*@
 </div>
-@*}*@
 
 
-
-@*<tr>
-        <td>@item.pname</td>
-        <td>@string.format("{0:c}", item.unitprice)</td>
-        <td>
-            <a class="quantity" onclick="change(this, 1, @item.pid)">+</a>
-            <span>@item.quantity</span>
-            <a class="quantity" onclick="change(this, 0, @item.pid)">-</a>
-            <a class="remove" onclick="change(this, -1, @item.pid)">remove</a>
-        </td>
-    </tr>*@
