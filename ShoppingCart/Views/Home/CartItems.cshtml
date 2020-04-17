@@ -2,13 +2,10 @@
     ViewBag.Title = "Shopping Cart";
 }
 
-<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src="~/Scripts/knockout-3.5.1.js"></script>
-<script src="~/Scripts/knockout.mapping-latest.js"></script>
-<script src="~/Scripts/cartItems.js"></script>
+@*<script src="~/Scripts/cartItems.js"></script>*@
 <h2>Shopping Cart</h2>
 
-<!--ko if:$root.items().length===0-->
+<!--ko if:$root.cartItems().length===0-->
 <br />
 <div id="EmptyDataMsg" class="alert alert-info">
     <strong>Welcome!</strong> Your shopping cart is currently empty. Let's start shopping
@@ -22,7 +19,7 @@
         <th>Unit Price</th>
         <th>Quantity</th>
     </tr>
-    <tbody data-bind="foreach:$root.items">
+    <tbody data-bind="foreach:$root.cartItems">
         <tr>
             <td><span class="p-name" data-bind="text:name"></span> </td>
             <td><span class="p-name" data-bind="text:$root.toPrice(unitPrice())"></span> </td>

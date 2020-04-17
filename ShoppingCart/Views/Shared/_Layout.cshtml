@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,6 +13,27 @@
     @RenderSection("scripts", required: false)
 
 </head>
+@{
+    var user = User.Identity.GetUserId();
+    var isLoggedIn = user != null;
+}
+<style>
+    .items-count {
+        position: absolute;
+        top: 0px;
+        left: 25px;
+        background-color: red;
+        width: 18px;
+        height: 18px;
+        text-align: center;
+        font-size: 12px;
+        border-radius: 100%;
+        color: white;
+        align-items: center;
+        display: grid;
+        font-weight: bold;
+    }
+</style>
 <body>
     <div class="navbar navbar-theme navbar-fixed-top">
         <div class="container">
@@ -25,14 +47,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="@Url.Action("CartItems", "Home")">
-                            <i class="fa fa-shopping-cart fa-lg"></i>
-                            <span>
-                                <strong>Shopping Cart</strong>
-                            </span>
-                        </a>
-                    </li>
+                    @if (isLoggedIn)
+                    {
+                        <li>
+                            <a href="@Url.Action("CartItems", "Home")">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                <span class="items-count" data-bind="text:$root.itemsCount"></span> – Items
+                            </a>
+                        </li>
+                    }
                     <li>@Html.ActionLink("About", "AboutUs", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -41,21 +64,7 @@
             </div>
         </div>
     </div>
-
-    <div class="container body-content">
-        @* <a class="basket">
-                <span>Your Basket: </span> @ViewBag.CartUnits
-                <table>
-                    @foreach (var c in ViewBag.Cart)
-                    {
-                        <tr><td>@c.Quantity x @String.Format("{0:c}", c.UnitPrice)</td><td>@c.PName</td></tr>
-                    }
-                    <tr>
-                        <td>Total: @String.Format("{0:c}", ViewBag.CartTotalPrice)</td>
-                        <td>@Html.ActionLink("Check Out", "Index", "Checkout")</td>
-                    </tr>
-                </table>
-            </a>*@
+    <div class="container body-content">    
         @RenderBody()
 
         <hr />
@@ -64,7 +73,13 @@
         </footer>
     </div>
 
+  
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script src="~/Scripts/index.js"></script>
 </body>
+
 </html>

@@ -539,10 +539,7 @@
     <Content Include="Content\ContactUsPage\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Content\Template\Acknoledgement.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\adminCruds.js" />
-    <Content Include="Scripts\cartItems.js" />
-    <Content Include="Scripts\contact.js" />
-    <Content Include="Scripts\items.js" />
+    <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -554,7 +551,6 @@
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\summary.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

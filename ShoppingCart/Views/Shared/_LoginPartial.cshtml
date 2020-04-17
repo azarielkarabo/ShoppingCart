@@ -1,4 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
+@{
+    var isAdmin = User.IsInRole("Admin");
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -9,7 +13,10 @@
             <li>
                 <a>@User.Identity.GetUserName()</a>
             </li>
-            <li>@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+            @if (isAdmin)
+            {
+                <li>@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+            }
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
         </ul>
     }

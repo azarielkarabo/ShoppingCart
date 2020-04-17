@@ -84,7 +84,9 @@ namespace ShoppingCart.Api.Controllers
         [Route("ClearCart")]
         public HttpResponseMessage DeleteAll()
         {
-            var cartItems = dbContext.ShoppingCartItems.ToList();
+            var userId = User.Identity.GetUserId();
+            var cartItems = dbContext.ShoppingCartItems.Where(c => c.UserId == userId).ToList();
+
             foreach (var item in cartItems)
             {
                 dbContext.ShoppingCartItems.Remove(item);

@@ -2,36 +2,32 @@
     ViewBag.Title = "Home Page";
 }
 
-<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src="~/Scripts/knockout-3.5.1.js"></script>
-<script src="~/Scripts/knockout.mapping-latest.js"></script>
-<script src="~/Scripts/items.js"></script>
-
 <br />
-<!--ko if:$root.items().length===0 -->
-<br />
-<div id="EmptyDataMsg" class="alert alert-info">
-    <strong>Welcome!</strong> Our shop is currently empty.
-</div>
-<!--/ko-->
-<div class="list-view">
-    <!--ko foreach:$root.items -->
-    <div class="list-item">
-        <span class="p-cart" data-bind="text:categoryName"></span>
-        <span class="img">
-            <span class="pull-right">
-                <img class="img-rounded" data-bind="attr: {src:imagePath}" style="height:120px;width:135px" />
-            </span>
-        </span>
-        <span class="p-name" data-bind="text:name"></span>
-        <span class="p-description" data-bind="text:description"></span>
-
-        <div class="add-to-cart">
-            <a data-bind="click:addToCart">Add To Cart</a>
-            <span class="p-price" data-bind="text:price"></span>
-        </div>
+<div id="listItems">
+    <!--ko if:$root.items().length===0 -->
+    <br />
+    <div id="EmptyDataMsg" class="alert alert-info">
+        <strong>Welcome!</strong> Our shop is currently empty.
     </div>
     <!--/ko-->
-</div>
+    <div class="list-view">
+        <!--ko foreach:$root.items -->
+        <div class="list-item">
+            <span class="p-cart" data-bind="text:categoryName"></span>
+            <span class="img">
+                <span class="pull-right">
+                    <img class="img-rounded" data-bind="attr: {src:imagePath}" style="height:120px;width:135px" />
+                </span>
+            </span>
+            <span class="p-name" data-bind="text:name"></span>
+            <span class="p-description" data-bind="text:description"></span>
 
+            <div class="add-to-cart">
+                <a data-bind="click:addToCart">Add To Cart</a>
+                <span class="p-price" data-bind="text:price"></span>
+            </div>
+        </div>
+        <!--/ko-->
+    </div>
+</div>
 

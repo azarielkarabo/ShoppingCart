@@ -1,14 +1,14 @@
 ﻿@{
     ViewBag.Title = "Admin Views";
 }
-<script src="~/Scripts/jquery-3.4.1.js"></script>
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/Scripts/knockout-3.5.1.js"></script>
 <script src="~/Scripts/knockout.mapping-latest.js"></script>
-<script src="~/Scripts/adminCruds.js"></script>
+<script src="~/Scripts/adminCruds.js"></script>*@
 
 <br />
 <br />
-<div class="form-horizontal">
+<div class="form-horizontal" id="adminView">
     <div class="container">
         <div class="col-md-12 maxheight" style="padding:5px">
             <ul class="nav nav-tabs">
@@ -40,7 +40,7 @@
                             </tr>
                             <!--ko foreach:orders-->
                             <tr>
-                                <td><i class="fa fa-search-plus"></i></td>
+                                <td><i class="fa fa-search-plus" data-bind="click:details"></i></td>
                                 <td class="p-name" data-bind="text:firstName"></td>
                                 <td class="p-name" data-bind="text:lastName"></td>
                                 <td class="p-name" data-bind="text:address"></td>
@@ -85,18 +85,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--ko foreach:filteredProducts-->
+                            <!--ko foreach:filteredItems-->
                             <tr>
                                 <td>
                                     <span><i class="fa fa-pencil fa-sm" data-bind="click:edit" data-toggle="modal" data-target="#productEditModal"></i></span>
                                     &nbsp;    <span> <i class="fa fa-trash fa-sm" data-bind="click:remove"></i></span>
                                 </td>
                                 <th scope="row">
-                                    <img class="img-rounded" data-bind="attr: {src:imagePath}" height="60px" width="70px" />
+                                    <img class="img-rounded" data-bind="attr: {src:imagePath}" style="height:60px;width:70px" />
                                 </th>
                                 <td data-bind="text:name" class="p-name"></td>
                                 <td data-bind="text:description" class="p-name"></td>
-                                <td data-bind="text:formattedPrice" class="p-name"></td>
+                                <td data-bind="text:price" class="p-name"></td>
 
 
                             </tr>
