@@ -80,6 +80,7 @@
                                 <th scope="col" width="80px"></th>
                                 <th scope="col" width="100px"></th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Description</th>
                                 <th width="80px">Price</th>
                             </tr>
@@ -95,8 +96,9 @@
                                     <img class="img-rounded" data-bind="attr: {src:imagePath}" style="height:60px;width:70px" />
                                 </th>
                                 <td data-bind="text:name" class="p-name"></td>
+                                <td data-bind="text:categoryName" class="p-name"></td>
                                 <td data-bind="text:description" class="p-name"></td>
-                                <td data-bind="text:price" class="p-name"></td>
+                                <td data-bind="text:$root.toPrice(price())" class="p-name"></td>
 
 
                             </tr>

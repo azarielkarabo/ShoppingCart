@@ -40,6 +40,7 @@ namespace ShoppingCart
 
                     _ = cfg.CreateMap<Product, ProductViewModel>()
                     .ForMember(c => c.CategoryId, d => d.MapFrom(c => c.Category.Id))
+                    .ForMember(c => c.Name, d => d.MapFrom(c => c.Name))
                     .ForMember(c => c.CategoryName, d => d.MapFrom(c => dbContext.Categories.Find(c.Category.Id).Name));
 
                     cfg.CreateMap<ProductViewModel, Product>()

@@ -24,7 +24,7 @@
 
             <div class="add-to-cart">
                 <a data-bind="click:addToCart">Add To Cart</a>
-                <span class="p-price" data-bind="text:price"></span>
+                <span class="p-price" data-bind="text:$root.toPrice(price())"></span>
             </div>
         </div>
         <!--/ko-->
